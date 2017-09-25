@@ -41,6 +41,12 @@ tokens = [
     'HEXADECIMAL',
     'OCTAL',
     'CADENA',
+    'REFERENCIAS',
+    'REFERENCIALISTA',
+    'PREINCREMENTO',
+    'POSINCREMENTO',
+    'PREDECREMENTO',
+    'POSDECREMENTO',
 
     #bucles and conditional
     'FOR',
@@ -413,25 +419,39 @@ def t_newline(t):
 	r'\n'
 	t.lexer.lineno += 1
 
-"""
+
 def t_ESCALARES(t): #esta parte reconoce los escalares con el simbolo $, se va a probar sin recibir el simbolo $
 	r'\$[a-zA-Z][a-zA-Z_0-9]+'
 	return t
-"""
 
-def t_ESCALARES(t): #esta parte reconoce los escalares con el simbolo $, se va a probar sin recibir el simbolo $
-	r'[a-zA-Z][a-zA-Z_0-9]+'
-	return t
-
-def t_REFERENCIAS(t): #aquí tengo duda como se debe utilizar el simbolo @
-	r'\$[a-zA-Z][a-zA-Z_0-9]+'
+def t_REFERENCIAS(t): #aqui tengo duda como se debe utilizar el simbolo @
+	r'\$\$[a-zA-Z][a-zA-Z_0-9]+'
 	return t
 
 def t_REFERENCIALISTA(t):
 	r'\$[a-zA-Z][a-zA-Z_0-9]+\-\>' #forma abreviada de utilizar referencias a listas asociadas o arrays
 	return t 					   #hace falta la referencia a arreglos 2d y 3d
 
+#No se si hacer expresion regular para operadores aritmeticos, ++ --
+#Operadores aritmeticos
+def t_PREINCREMENTO(t):
+	r'\+\+[a-zA-Z]+'
+	return t
 
+def t_POSINCREMENTO(t):
+	r'[a-zA-Z]+\+\+'
+	return t
+
+def t_PREDECREMENTO(t):
+	r'\-\-[a-zA-Z]+'
+	return t
+
+def t_POSDECREMENTO(t):
+	r'[a-zA-Z]+\-\-'
+	return t
+###########################################
+
+#Operadores relacionales
 
 
 
