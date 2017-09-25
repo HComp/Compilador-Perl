@@ -101,6 +101,9 @@ tokens = [
 	'TELL', 				#devuelve la posicion actual del puntero a fichero del manejador de fichero especificado.
 	'VALUES', 			#devuelve todos los valores del array asociativo dado.
 	'WRITE', 				#escribe un registro con formato en el fichero asociado a ese formato.
+	'PESOS',				#para escribir un escalar o una referencia
+	'ARROBA',				#para definir un arreglo
+	'PORCENTAJE'			#para definir un asociado
  ]
 
 t_PLUS = r'\+'
@@ -123,6 +126,9 @@ t_COLON = r':'
 t_AMPERSANT = r'\&'
 t_HASHTAG = r'\#'
 t_DOT = r'\.'
+t_PESOS = r'\$'
+t_ARROBA = r'\@'
+t_PORCENTAJE = r'\%'
 
 def t_FOR(t):
 	r'for'
@@ -345,12 +351,12 @@ def t_WRITE(t):				#escribe un registro con formato en el fichero asociado a ese
 	r'write'
 	return t
 
-def t_ARRAY(t):
-	r'\@[a-zA-Z][a-zA-Z_0-9]+'
+def t_ARRAY(t): 			#haciendo caso a la recomendacion de reconocer el @ como un token aparte
+	r'[a-zA-Z][a-zA-Z_0-9]+' #se le puede anteponer el simbolo $. opcional
 	return t
 
-def t_ASOCIADAS(t):
-	r'\%[a-zA-Z][a-zA-Z_0-9]+'
+def t_ASOCIADAS(t): 		#haciendo caso a la recomendacion de reconocer el % como un token aparte
+	r'[a-zA-Z][a-zA-Z_0-9]+' #hace falta algo
 	return t
 
 def t_ENTERO(t):
@@ -407,10 +413,29 @@ def t_newline(t):
 	r'\n'
 	t.lexer.lineno += 1
 
-
-def t_ESCALARES(t):
+"""
+def t_ESCALARES(t): #esta parte reconoce los escalares con el simbolo $, se va a probar sin recibir el simbolo $
 	r'\$[a-zA-Z][a-zA-Z_0-9]+'
 	return t
+"""
+
+def t_ESCALARES(t): #esta parte reconoce los escalares con el simbolo $, se va a probar sin recibir el simbolo $
+	r'[a-zA-Z][a-zA-Z_0-9]+'
+	return t
+
+def t_REFERENCIAS(t): #aquí tengo duda como se debe utilizar el simbolo @
+	r'\$[a-zA-Z][a-zA-Z_0-9]+'
+	return t
+
+def t_REFERENCIALISTA(t):
+	r'\$[a-zA-Z][a-zA-Z_0-9]+\-\>' #forma abreviada de utilizar referencias a listas asociadas o arrays
+	return t 					   #hace falta la referencia a arreglos 2d y 3d
+
+
+
+
+
+
 
 
 t_ignore = ' \t'
