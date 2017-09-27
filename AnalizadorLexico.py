@@ -572,7 +572,7 @@ def t_DECREMENTO(t):
 	r'\-\-'
 	return t
 
-def t_EXPREGULAR(t): ###terminarrrrrrr
+def t_EXPREGULAR(t): 
 	r'[\~|\^|\$]?\/[\w]+\/'
 	return t
 
