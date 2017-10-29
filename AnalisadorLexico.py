@@ -19,10 +19,10 @@ tokens = [
     'GREATEREQUAL',
     'GUIONDOWN',
     'ARROW',
-    'EQUALGREATER',
-    'LESSEQUALGREATER',
-    'EQUALPRIME',
-    'EXCLAMATIONPRIME',
+    #'EQUALGREATER',
+    #'LESSEQUALGREATER',
+    #'EQUALPRIME',
+    # 'EXCLAMATIONPRIME',
     'EQUAL',
     'DEQUAL',
     'DISTINT',
@@ -82,7 +82,7 @@ tokens = [
 
 	#encontrado en la pagina https://www.programacionfacil.com/perl_script/palabras_reservadas.html
 	'ABS', 					#devuelve el valor absoluto de la expresion pasada.
-	'CHMOD', 				#cambia los permisos de los ficheros dados.
+	# 'CHMOD', 				#cambia los permisos de los ficheros dados.
 	'CHOP',				#recorta y retorna el ultimo caracter de una cadena.
 	'CHOWN', 				# cambia el propietario de los ficheros dados.
 	'CLOSE', 				#cierra un fichero. cos: devuelve el coseno del angulo dado en radianes.
@@ -151,7 +151,7 @@ t_MINUS = r'-'
 t_TIMES = r'\*'
 t_GUIONDOWN = r'_'
 t_DIVIDE = r'/'
-t_REFERENCE =r'\\'
+t_REFERENCE =r'\\'													# ojo pilas cuidado depronto no chupelo													
 t_LESS = r'<'
 t_GREATER = r'>'
 t_EQUAL = r'='
@@ -232,21 +232,21 @@ def t_ABS(t):
 	r'abs'
 	return t
 
-def t_CHMOD(t):
-	r'hcmod' 				#cambia los permisos de los ficheros dados.
-	return t
+# def t_CHMOD(t):
+# 	r'hcmod' 				#cambia los permisos de los ficheros dados.
+# 	return t
 
 def t_CHOP(t):				#recorta y retorna el ultimo caracter de una cadena.
 	r'chop'
 	return t
 
-def t_CHOW(t): 				# cambia el propietario de los ficheros dados.
-	r'chow'
-	return t
+# def t_CHOW(t): 				# cambia el propietario de los ficheros dados.
+# 	r'chow'
+# 	return t
 
-def t_CLOSE(t): 				#cierra un fichero. cos: devuelve el coseno del angulo dado en radianes.
-	r'close'
-	return t
+# def t_CLOSE(t): 				#cierra un fichero. cos: devuelve el coseno del angulo dado en radianes.
+# 	r'close'
+# 	return t
 
 def t_DEFINED(t): 			#sirve para comprobar si existe una variable, formato, subrutina,etc..
 	r'define'
@@ -264,9 +264,9 @@ def t_EOF(t): 					#retorna verdadero si el final del fichero dado.
 	r'eof'
 	return t
 
-def t_EVAL(t): 				#evalua la expresion pasada como si se tratase de un pequeno programa perl.
-	r'eval'
-	return t
+# def t_EVAL(t): 				#evalua la expresion pasada como si se tratase de un pequeno programa perl.
+# 	r'eval'
+# 	return t
 
 def t_EXEC(t): 				#ejecuta lo que pasemos como parametro y sale del programa.
 	r'exec'
@@ -283,13 +283,13 @@ def t_EACH(t):
 	r'each'
 	return t
 
-def t_FILENO(t): 			#devuelve el descriptor del manejador del fichero pasado como parametro.
-	r'fileno'
-	return t
+# def t_FILENO(t): 			#devuelve el descriptor del manejador del fichero pasado como parametro.
+# 	r'fileno'
+# 	return t
 
-def t_FORK(t): 				#realiza una llamada fork. getc: lee el siguiente caracter del fichero especificado.
-	r'fork'
-	return t
+# def t_FORK(t): 				#realiza una llamada fork. getc: lee el siguiente caracter del fichero especificado.
+# 	r'fork'
+# 	return t
 
 def t_GOTO(t):
 	r'goto'
@@ -319,9 +319,9 @@ def t_INT(t): 					#devuelve la parte entera del parametro pasado.
 	r'int'
 	return t
 
-def t_JOIN(t): 				#une las cadenas pasadas como argumento con un separador tambien pasado como argumento.
-	r'join'
-	return t
+# def t_JOIN(t): 				#une las cadenas pasadas como argumento con un separador tambien pasado como argumento.
+# 	r'join'
+# 	return t
 
 def t_KEYS(t): 				#devuelve todas las claves de un array asociativo.
 	r'keys'
@@ -347,9 +347,9 @@ def t_OCT(t): 					#devuelve el valor decimal del numero octal pasado como param
 	r'oct'
 	return t
 
-def t_OPEN(t): 				#abre el fichero fichero dado asociandole un manejador de fichero especificado tambien como parametro.
-	r'open'
-	return t
+# def t_OPEN(t): 				#abre el fichero fichero dado asociandole un manejador de fichero especificado tambien como parametro.
+# 	r'open'
+# 	return t
 
 def t_POP(t): 					#retorna y borra el ultimo elemento del array dado.
 	r'pop'
@@ -363,9 +363,9 @@ def t_PUSH(t): 				#anade el valor dado al final del array pasado como parametro
 	r'push'
 	return t
 
-def t_PACK(t):
-	r'pack'
-	return t
+# def t_PACK(t):
+# 	r'pack'
+# 	return t
 
 def t_PREINDEX(t):
 	r'\$\['
@@ -375,25 +375,25 @@ def t_POSTINDEX(t):
 	r'\$\#'
 	return t
 
-def t_PLUSGREATER(t):
-	r'\+\>'
-	return t
+# def t_PLUSGREATER(t):
+# 	r'\+\>'
+# 	return t
 
-def t_PLUSLESS(t):
-	r'\+\<'
-	return t
+# def t_PLUSLESS(t):
+# 	r'\+\<'
+# 	return t
 
 def t_RAND(t): 				#devuelve un numero aleatorio entre 0 y el valor pasado como argumento.
 	r'rand'
 	return t
 
-def t_READ(t): 				#lee un determinado numero de caracteres desde el fichero pasado como argumento.
-	r'read'
-	return t
+# def t_READ(t): 				#lee un determinado numero de caracteres desde el fichero pasado como argumento.
+# 	r'read'
+# 	return t
 
-def t_RENAME(t): 			#sirve para renombrar un fichero.
-	r'rename'
-	return t
+# def t_RENAME(t): 			#sirve para renombrar un fichero.
+# 	r'rename'
+# 	return t
 
 def t_REQUIRE(t): 			#sirve para incluir codigo externo en nuestro guion.
 	r'require'
@@ -411,13 +411,13 @@ def t_RMDIR(t): 				#borra un directorio.
 	r'rmdir'
 	return t
 
-def t_SEEK(t): 				#situa un puntero a fichero en un lugar determinado.
-	r'seek'
-	return t
+# def t_SEEK(t): 				#situa un puntero a fichero en un lugar determinado.
+# 	r'seek'
+# 	return t
 
-def t_SELECT(t): 			#sirve para seleccionar el manejador de fichero que sera utilizado por defecto para la salida de los comandos o funciones que no especifiquen un determinado manejador de fichero como parametro.
-	r'select'
-	return t
+# def t_SELECT(t): 			#sirve para seleccionar el manejador de fichero que sera utilizado por defecto para la salida de los comandos o funciones que no especifiquen un determinado manejador de fichero como parametro.
+# 	r'select'
+# 	return t
 
 def t_SHIFT(t): 				#devuelve el primer valor del array dado borrandolo posteriormente.
 	r'shift'
@@ -447,9 +447,9 @@ def t_SYSTEM(t): 			#igual que exec pero no se sale del perl script.
 	r'system'
 	return t
 
-def t_TELL(t): 				#devuelve la posicion actual del puntero a fichero del manejador de fichero especificado.
-	r'tell'
-	return t
+# def t_TELL(t): 				#devuelve la posicion actual del puntero a fichero del manejador de fichero especificado.
+# 	r'tell'
+	# return t
 
 def t_UNSHIFT(t):
 	r'unshift'
@@ -519,26 +519,29 @@ def t_LESSEQUAL(t):
 def t_GREATERGREATER(t):
 	r'>>'
 	return t
-
+'''
 def t_EQUALGREATER(t):
 	r'=>'
 	return t
-
+'''
 def t_GREATEREQUAL(t):
 	r'>='
 	return t
-
+'''
 def t_LESSEQUALGREATER(t):
 	r'<=>'
 	return t
-
+'''
+'''
 def t_EQUALPRIME(t):
 	r'=~'
 	return t
-
+'''
+'''
 def t_EXCLAMATIONPRIME(t):
 	r'!~'
 	return t
+'''
 
 def t_AND(t):
 	r'\&\&'
