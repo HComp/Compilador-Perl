@@ -19,7 +19,7 @@ tokens = [
     'GREATEREQUAL',
     'GUIONDOWN',
     'ARROW',
-    #'EQUALGREATER',
+    'EQUALGREATER',
     #'LESSEQUALGREATER',
     #'EQUALPRIME',
     # 'EXCLAMATIONPRIME',
@@ -192,13 +192,13 @@ def t_NOTS(t):
 
 def t_COMMENT(t):
 	r'\#.*'
-
-def t_FOR(t):
-	r'for'
-	return t
 	
 def t_FOREACH(t):
 	r'foreach'
+	return t
+
+def t_FOR(t):
+	r'for'
 	return t
 
 def t_MY(t):
@@ -255,10 +255,6 @@ def t_DEFINED(t): 			#sirve para comprobar si existe una variable, formato, subr
 
 def t_DELETE(t): 			#borra un valor de un array asociativo a traves de su clave.
 	r'delete'
-	return t
-
-def t_DIE(t): 					#imprime en la salida del error estandar un mensaje pasado como parametro cuando ocurre un error en la ejecucion de una sentencia.
-	r'die'
 	return t
 
 def t_EOF(t): 					#retorna verdadero si el final del fichero dado.
@@ -484,10 +480,6 @@ def t_DOLLARDOLLAR(t):
 	r'\$\$'
 	return t
 
-def t_ENTERO(t):
-	r'([1-9][0-9]*|0)'
-	return t
-# Aqui tambien puede ser 0X o 0x
 def t_HEXADECIMAL(t):
 	r'(0x|0X)[a-fA-F0-9]+'
 	return t
@@ -505,6 +497,11 @@ def t_OCTAL(t):
 	r'0\d+'
 	return t
 
+def t_ENTERO(t):
+	r'([1-9][0-9]*|0)'
+	return t
+# Aqui tambien puede ser 0X o 0x
+
 def t_ISEQUAL(t):
 	r'=='
 	return t
@@ -520,11 +517,11 @@ def t_LESSEQUAL(t):
 def t_GREATERGREATER(t):
 	r'>>'
 	return t
-'''
+
 def t_EQUALGREATER(t):
 	r'=>'
 	return t
-'''
+
 def t_GREATEREQUAL(t):
 	r'>='
 	return t
@@ -567,16 +564,12 @@ def t_PLUSPLUS(t):
 	r'\+\+'
 	return t
 
-def t_INCREMENTO(t):
-	r'\+\+'
-	return t
-
-def t_DECREMENTO(t):
-	r'\-\-'
-	return t
-
 def t_EXPREGULAR(t): 
 	r'[\~|\^|\$]?\/[\w]+\/'
+	return t
+
+def t_DIE(t): 					#imprime en la salida del error estandar un mensaje pasado como parametro cuando ocurre un error en la ejecucion de una sentencia.
+	r'die'
 	return t
 
 def t_newline(t):
