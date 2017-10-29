@@ -143,7 +143,8 @@ tokens = [
 
 	'PESOS',				#para escribir un escalar o una referencia
 	'ARROBA',				#para definir un arreglo
-	'PORCENTAJE'			#para definir un asociado
+	'PORCENTAJE',			#para definir un asociado
+	'EXPREGULAR'
  ]
 
 t_PLUS = r'\+'
@@ -572,6 +573,10 @@ def t_INCREMENTO(t):
 
 def t_DECREMENTO(t):
 	r'\-\-'
+	return t
+
+def t_EXPREGULAR(t): 
+	r'[\~|\^|\$]?\/[\w]+\/'
 	return t
 
 def t_newline(t):
