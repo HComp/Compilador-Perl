@@ -1,1 +1,3 @@
 minic_parser.py
+*.pyc
+parsetab.py

@@ -5,6 +5,8 @@ import sys
 
 VERBOSE = 1
 
+val=False
+
 def p_program(p):
 	'program : declaration_list'
 	pass
@@ -18,6 +20,10 @@ def p_declaration(p):
 	'''declaration : header_declaration
 						| print
 						| var_declaration
+						| sentencia_if
+						| function_declaration
+						| call_function SEMICOLON
+						| E SEMICOLON
 						| ciclos'''
 	pass
 
@@ -34,8 +40,11 @@ def p_header_declaration_2(p):
 # AQUI ESTOY DECLARANDO TODO LO QUE TENGA QUE VER CON LAS VARIABLES
 def p_var_declaration_1(p):
 	'''var_declaration : PESOS ID SEMICOLON
+						| MY PESOS ID SEMICOLON
 						| PESOS ID EQUAL E SEMICOLON
+						| PESOS ID EQUAL call_function SEMICOLON
 						| PESOS ID incdec SEMICOLON
+						| MY PESOS ID EQUAL typevar SEMICOLON
 						| PESOS ID EQUAL typevar SEMICOLON'''
 	pass 
 
@@ -134,10 +143,10 @@ def p_sent_for(p):
 	'''sent_for : PESOS ID
 					| PESOS ID EQUAL ENTERO
 					| MY PESOS ID EQUAL ENTERO
-					| PESOS ID EQUAL ENTERO COMMA sent_for
-					| MY PESOS ID EQUAL ENTERO COMMA sent_for''' 
+					| MY PESOS ID EQUAL ENTERO COMMA sent_for
+					| PESOS ID EQUAL ENTERO COMMA sent_for''' 
 	pass
-	
+
 # AQUI ESTA LA PARTE DE CONDICIONALES
 
 def p_log(p):
@@ -191,13 +200,37 @@ def p_var_declaration_gen(p):
 
 def p_arg(p):
 	'''arg : var_declaration_gen
-			|	CADENA
-			|	var_declaration_gen COMMA arg
-			|	CADENA COMMA arg'''
+			| type
+			| type COMMA arg  
+			| CADENA
+			| var_declaration_gen COMMA arg
+			| CADENA COMMA arg'''
+	pass
+
+# AQUI VAMOS A PONER TODO LO REFRENTE A SALTOS
+
+def p_sentencia_if(p):
+	''' sentencia_if : IF LPAREN cond RPAREN LBLOCK declaration_list RBLOCK
+						| IF LPAREN cond RPAREN LBLOCK declaration_list RBLOCK ELSE LBLOCK declaration_list RBLOCK
+						| IF LPAREN cond RPAREN LBLOCK declaration_list RBLOCK ELSIF LPAREN cond RPAREN LBLOCK declaration_list RBLOCK
+	'''
+	pass
+
+# AQUI VAMOS A PONER TODO LO REFERENTE A FUNCIONES
+
+def p_function_declaration(p):
+	'''function_declaration : SUB ID LBLOCK declaration_list RBLOCK'''
+	pass
+
+def p_call_function(p):
+	'''call_function : ANDBW ID
+						| ANDBW ID LPAREN arg RPAREN'''
 	pass
 
 def p_error(p):
+	global val
 	if VERBOSE:
+		val=True
 		if p is not None:
 			print ("ERROR SINTACTICO EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value))
 		else:
@@ -220,5 +253,6 @@ if __name__ == '__main__':
 	data = f.read()
 	#print (data)
 	parser.parse(data, tracking=True)
-	print("Tu parser reconocio correctamente todo")
+	if not val :
+		print("Tu parser reconocio correctamente todo")
 	#input()
