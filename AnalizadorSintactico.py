@@ -137,7 +137,7 @@ def p_sent_for(p):
 					| PESOS ID EQUAL ENTERO COMMA sent_for
 					| MY PESOS ID EQUAL ENTERO COMMA sent_for''' 
 	pass
-
+	
 # AQUI ESTA LA PARTE DE CONDICIONALES
 
 def p_log(p):
