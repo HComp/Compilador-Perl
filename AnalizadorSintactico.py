@@ -16,6 +16,7 @@ def p_declaration_list_2(p):
 
 def p_declaration(p):
 	'''declaration : header_declaration
+						| print
 						| var_declaration
 						| ciclos'''
 	pass
@@ -34,8 +35,9 @@ def p_header_declaration_2(p):
 def p_var_declaration_1(p):
 	'''var_declaration : PESOS ID SEMICOLON
 						| PESOS ID EQUAL E SEMICOLON
+						| PESOS ID incdec SEMICOLON
 						| PESOS ID EQUAL typevar SEMICOLON'''
-	pass
+	pass 
 
 # AUI VOY A PONER TODO LO REFERENTE A ARREGLOS
 
@@ -50,6 +52,7 @@ def p_var_declaration_2(p):
 def p_var_declaration_3(p):
 	'''var_declaration :  PORCENTAJE ID SEMICOLON
 							| PORCENTAJE ID EQUAL LBLOCK lista1 RBLOCK SEMICOLON
+							| PORCENTAJE ID EQUAL LPAREN lista1 RPAREN SEMICOLON
 							| PORCENTAJE ID EQUAL LPAREN lista2 RPAREN SEMICOLON
 							| PORCENTAJE ID EQUAL PORCENTAJE ID SEMICOLON'''
 	pass
@@ -60,7 +63,13 @@ def p_lista2(p):
 				| typevar COMMA LBRACKET lista RBRACKET COMMA lista2
 				| typevar COMMA typevar
 				| typevar COMMA LPAREN lista RPAREN
-				| typevar COMMA LBRACKET lista RBRACKET''' 
+				| typevar COMMA LBRACKET lista RBRACKET
+				| ID COMMA typevar COMMA lista2
+				| ID COMMA LPAREN lista RPAREN COMMA lista2
+				| ID COMMA LBRACKET lista RBRACKET COMMA lista2
+				| ID COMMA typevar
+				| ID COMMA LPAREN lista RPAREN
+				| ID COMMA LBRACKET lista RBRACKET''' 
 	pass
 
 def p_lista1(p):
@@ -69,7 +78,13 @@ def p_lista1(p):
 				| typevar EQUALGREATER LBRACKET lista RBRACKET COMMA lista1
 				| typevar EQUALGREATER typevar
 				| typevar EQUALGREATER LPAREN lista RPAREN
-				| typevar EQUALGREATER LBRACKET lista RBRACKET''' 
+				| typevar EQUALGREATER LBRACKET lista RBRACKET
+				| ID EQUALGREATER typevar COMMA lista1
+				| ID EQUALGREATER LPAREN lista RPAREN COMMA lista1
+				| ID EQUALGREATER LBRACKET lista RBRACKET COMMA lista1
+				| ID EQUALGREATER typevar
+				| ID EQUALGREATER LPAREN lista RPAREN
+				| ID EQUALGREATER LBRACKET lista RBRACKET''' 
 	pass
 
 def p_lista(p):
@@ -84,8 +99,6 @@ def p_typevar(p):
 					| OCTAL
 					| HEXADECIMAL'''
 	pass
-
-
 
 # AQUI VAMOS A DECLARAR TODAS LAS OPERACION TALES COMO +, -, *, /
 
@@ -109,40 +122,78 @@ def p_F(p):
 			| LPAREN E RPAREN'''
 	pass
 
-
 # AQUI VAMOS A DECLARAR TODOS LOS CICLOS
 
 def p_ciclos(p):
-	'''ciclos : FOR LPAREN sent_for SEMICOLON cond SEMICOLON PESOS ID incdec  RPAREN LBLOCK sentencias_ciclos RBLOCK
-					| FOREACH PESOS ID LPAREN ARROBA ID RPAREN LBLOCK sentencias_ciclos RBLOCK
-					| WHILE LPAREN cond RPAREN LBLOCK sentencias_ciclos RBLOCK''' 
-	pass
-
-def p_sentencias_ciclos(p):
-	''' sentencias_ciclos : var_declaration sentencias_ciclos
-								| ciclos sentencias_ciclos
-								| var_declaration
-								| ciclos'''
-	pass
+	'''ciclos : FOR LPAREN sent_for SEMICOLON cond SEMICOLON PESOS ID incdec  RPAREN LBLOCK declaration_list RBLOCK
+					| FOREACH PESOS ID LPAREN ARROBA ID RPAREN LBLOCK declaration_list RBLOCK
+					| WHILE LPAREN cond RPAREN LBLOCK declaration_list RBLOCK''' 
+	pass	
 
 def p_sent_for(p):
 	'''sent_for : PESOS ID
-						| PESOS ID EQUAL ENTERO''' 
+					| PESOS ID EQUAL ENTERO
+					| MY PESOS ID EQUAL ENTERO
+					| PESOS ID EQUAL ENTERO COMMA sent_for
+					| MY PESOS ID EQUAL ENTERO COMMA sent_for''' 
+	pass
+
+# AQUI ESTA LA PARTE DE CONDICIONALES
+
+def p_log(p):
+	'''log : LESS
+			| GREATER
+			| ISEQUAL
+			| LESSEQUAL
+			| GREATEREQUAL
+			| DEQUAL
+			| AND
+			| ANDS
+			| ORS
+			| OR'''
+	pass
+
+def p_type(p):
+	'''type : typevar
+				| var_declaration_gen'''
 	pass
 
 def p_cond(p):
-	'''cond : typevar LESS typevar
-				| typevar GREATER typevar
-				| typevar ISEQUAL typevar
-				| typevar LESSEQUAL typevar
-				| typevar GREATEREQUAL typevar
-				| typevar DEQUAL typevar
-				| typevar AND typevar'''
+	'''cond : type
+				| cond log cond
+				| NOT cond
+				| LPAREN type RPAREN
+				| LPAREN cond RPAREN'''
 	pass
+
+# AQUI ACEPTAMOS INCREMENTO Y DECREMENTO
 
 def p_incdec(p):
 	'''incdec : PLUSPLUS
 					| MINUSMINUS'''
+	pass
+
+# AQUI VAMOS A DECLARAR LA SALIDA EN PANTALLA
+
+def p_print(p):
+	'''print : PRINT arg SEMICOLON
+				| PRINT LPAREN arg RPAREN SEMICOLON'''
+	pass
+
+# VARIABLE SIN SEMICOLON PARA ARGUMENTOS A FUNCIONES Y PRINT
+
+def p_var_declaration_gen(p):
+	'''var_declaration_gen : PESOS ID
+								| PESOS ID LBRACKET ENTERO RBRACKET
+								| PESOS ID LBLOCK 	typevar RBLOCK	
+								| PESOS ID LBLOCK	ID RBLOCK'''
+	pass
+
+def p_arg(p):
+	'''arg : var_declaration_gen
+			|	CADENA
+			|	var_declaration_gen COMMA arg
+			|	CADENA COMMA arg'''
 	pass
 
 def p_error(p):
@@ -163,7 +214,7 @@ if __name__ == '__main__':
 	if (len(sys.argv) > 1):
 		fin = sys.argv[1]
 	else:
-		fin = 'Entrada.pl'
+		fin = 'example.pl'
 
 	f = open(fin, 'r')
 	data = f.read()

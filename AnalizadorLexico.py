@@ -590,7 +590,7 @@ def t_error(t):
 lexer = lex.lex()
 
 if __name__ == "__main__":
-	archivo = open("Entrada.pl", "r")
+	archivo = open("example.pl", "r")
 	data = archivo.read()
 	lexer.input(data)
 	for tok in lexer:
